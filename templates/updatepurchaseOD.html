@@ -1,0 +1,109 @@
+{% extends "base.html" %}
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>อัปเดตข้อมูล</title>
+    <link rel="stylesheet" href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css">
+    <link rel="stylesheet" href="../static/css/insert.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        .container {
+          max-width: 800px;
+          margin: 0 auto;
+          padding: 50px;
+        }
+    
+        .row {
+          margin-bottom: 50px;
+        }
+    
+        .col-half {
+          width: 48%;
+          display: inline-block;
+          vertical-align: top;
+        }
+    
+        .col-third {
+          width: 30%;
+          display: inline-block;
+          margin-right: 5%;
+        }
+    
+        
+        .input-group {
+          position: relative;
+          margin-bottom: 10px;
+        }
+    
+        .input-group-icon {
+          display: flex;
+          align-items: center;
+        }
+    
+        .input-group-icon input {
+          padding-left: 30px;
+        }
+    
+        .input-icon {
+          position: absolute;
+          left: 10px;
+        }
+    
+        .input-icon i {
+          color: #999;
+        }
+      </style>
+</head>
+<body>
+    <div class="container">
+    <form method="POST" action="/updatepurchaseOD">
+        <div class="row">
+            <h1><b>การเเก้ไขข้อมูลใบเสนอซื้อ</b></h1>
+            <h4>กรอกข้อมูล</h4>
+            <input type="hidden" name="id" value="{{ PD[0] }}">
+            
+            <label for="date">วันที่บันทึกข้อมูล:</label>
+            <input type="date" id="date" name="date" value="{{ PD[1] }}" required><br>
+            
+            <label for="remark">หมายเหตุ:</label>
+            <input type="text" id="remark" name="remark" value="{{ PD[2] }}" required><br>
+
+            <label for="status">สถานะ:</label><br>
+            <select id="status" name="status" required>
+                <option value="">โปรดเลือกสถานะ</option>
+                <option value="ซื้อขายไม่สำเร็จ" {% if PD[6] == 'ซื้อขายไม่สำเร็จ' %}selected{% endif %}>ซื้อขายไม่สำเร็จ</option>
+                <option value="ซื้อขายสำเร็จ" {% if PD[6] == 'ซื้อขายสำเร็จ' %}selected{% endif %}>ซื้อขายสำเร็จ</option>
+            </select><br>
+
+            <br><label for="User_ID">ชื่อพนักงาน:</label>
+            <div class="input-group input-group-icon">
+                <select id="User_ID" class="form-control custom-select" name="User_ID" required>
+                    <option selected disabled>เลือกรหัสพนักงาน</option>
+                    {% for user in users %}
+                        <option value="{{ user[0] }}"{% if PD[4] == user[0] %} selected {% endif %}>{{ user[1] }} {{ user[2] }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+
+            <label for="Vendor_ID">ชื่อบริษัทจัดจำหน่ายสินค้า:</label>
+            <div class="input-group input-group-icon">
+                <select id="Vendor_ID" class="form-control custom-select" name="Vendor_ID" required>
+                    <option selected disabled>ชื่อบริษัทจัดจำหน่ายสินค้า</option>
+                    {% for vendor in vendors %}
+                        <option value="{{ vendor[0] }}"{% if PD[5] == vendor[0] %} selected {% endif %}>{{ vendor[1] }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            
+
+            <br><input type="submit" value="อัปเดตข้อมูล">
+        </div>
+    </form>
+    </div>
+</body>
+</html>
+{% endblock %}

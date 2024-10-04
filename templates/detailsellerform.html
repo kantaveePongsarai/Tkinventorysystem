@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ใบเสนอขายสินค้า</title>
+    <link rel="stylesheet" href="../static/css/detailsellerform.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+        th, td {
+            border: 1px solid #000;
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+        .document {
+            width: 100%;
+            margin: 0 auto;
+        }
+        .amount {
+            text-align: right;
+        }
+        .docEdit {
+            text-align: center;
+            cursor: pointer;
+        }
+        .docEdit.trAdd {
+            color: green;
+        }
+        .docEdit.tdDelete {
+            color: red;
+        }
+    </style>
+</head>
+<body>
+    <div class="document active">
+        <div class="spreadSheetGroup">
+            <td style="width:50%; vertical-align:top">
+                <table style="width:100%">
+                    <tbody>
+                        <tr>
+                            <td>
+                                <h2>ใบเสนอขายสินค้า Tk Management co.,ltd : {% print data[0][0] %}</h2>
+                                <img src="../static/image/TKB1.png" alt="" style="width: 50px;" height="50px">
+                                <h4>วันที่ออกใบเสนอ : {% print data[0][1] %}</h4>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <h4>ข้อมูลลูกค้า</h4>
+                                <p>ชื่อลูกค้า : {% print data[0][11] %} {% print data[0][20] %}</p>
+                                <p style="padding-left:20px">
+                                    ที่อยู่ลูกค้า : {% print data[0][12] %}
+                                </p>
+                                <p>อีเมล์ : {% print data[0][13] %}</p>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </td>
+
+            <table class="proposedWork">
+                <thead>
+                    <tr>
+                        <th>รหัสสินค้า</th>
+                        <th>รูปสินค้า</th>
+                        <th>ชื่อสินค้า</th>
+                        <th>จำนวน</th>
+                        <th>ราคาเฉลี่ยต่อชิ้น</th>
+                        <th>ราคารวม</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for row in data %}
+                    <tr>
+                        <td>{{row[8]}}</td>
+                        <td><img src="{{row[17]}}" alt="" style="width: 50px;" height="50px"></td>
+                        <td class="description"> {{row[15]}}</td>
+                        <td>{{row[9]}}</td>
+                        <td>{{'%.2f'%row[16]}}</td>
+                        <td class="amount" contenteditable="true">{{ '{:,.2f}'.format(row[10]) }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <td style="border:none"></td>
+                        <td colspan="4" style="border:none;text-align:right">ราคารวม:</td>
+                        <td class="total amount" contenteditable="true">{{ '{:,.2f}'.format(total) }}</td>
+                        <td class="docEdit"></td>
+                    </tr>
+                    <tr>
+                        <td style="border:none"></td>
+                        <td colspan="4" style="border:none;text-align:right">ราคารวมภาษี:</td>
+                        <td class="total amount" contenteditable="true">{{ '{:,.2f}'.format(totalvat) }}</td>
+                        <td class="docEdit"></td>
+                    </tr>
+                </tfoot>
+                
+            </table>
+
+            <table>
+                <tbody>
+                    <tr>
+                        <td style="width:50%; vertical-align:top">
+                            <table style="width:100%">
+                                <tbody>
+                                    <tr>
+                                        <td>
+                                            <h4>บริษัททีเคเเมนเนจเมนท์จำกัด</h4>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <h4>ใบเสนอการขายสินค้าของบริษัททีเคเเมนเนจเมนท์จำกัด</h4>
+                                            <h4>TK Management co.,ltd.</h4>
+                                            <h4>กรุณาพิมพ์เอกสารใบเสนอขายนี้ขั้นต่ำ 2 ชุด เพื่อสำรองไว้ใช้กรณีทำหายหรือชำรุจ:</h4>
+                                            <h4 style="padding-left:20px">
+                                                42/4 ตำบลบางเดื่อ<br>
+                                                อำเภอเมืองปทุมธานี จังหวัดปทุมธานี.<br>
+                                                รหัสไปรษณีย์ 12000<br>
+                                                เบอร์ 082 451 4442
+                                            </h4>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </td>
+                        <td style="padding-left:40px; width:50%; vertical-align:top">
+                            <table style="width:100%">
+                                <tbody>
+                                   
+                                    <tr>
+                                        <td contenteditable="true" style="text-align:left;border: 1px solid #000">
+                                            <strong>หมายเหตุ : {% print data[0][5] %}</strong>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="padding-top:30px">
+                                            <h4>ออกใบเสนอขายโดย : {% print data[0][14] %}   {% print data[0][19] %}</h4>  <h4>(.........................................................................)</h4>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="padding-top:30px">
+                                            <h4>........................................................</h4>  <h4>(.........................................................................)</h4>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    
+    <script  src="../static/js/detailform.js"></script>
+</body>
+</html>

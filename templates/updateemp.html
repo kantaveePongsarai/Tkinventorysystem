@@ -1,0 +1,138 @@
+{% extends "base.html" %}
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>อัปเดตข้อมูล</title>
+    <link rel="stylesheet" href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css">
+    <link rel="stylesheet" href="../static/css/insert.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        .container {
+          max-width: 800px;
+          margin: 0 auto;
+          padding: 50px;
+        }
+    
+        .row {
+          margin-bottom: 20px;
+        }
+    
+        .col-half {
+          width: 48%;
+          display: inline-block;
+          vertical-align: top;
+        }
+    
+        .col-third {
+          width: 30%;
+          display: inline-block;
+          margin-right: 5%;
+        }
+    
+        .input-group {
+          position: relative;
+          margin-bottom: 10px;
+        }
+    
+        .input-group-icon {
+          display: flex;
+          align-items: center;
+        }
+    
+        .input-group-icon input {
+          padding-left: 30px;
+        }
+    
+        .input-icon {
+          position: absolute;
+          left: 10px;
+        }
+    
+        .input-icon i {
+          color: #999;
+        }
+      </style>
+</head>
+<body>
+    <div class="container">
+    <form method="POST" action="/updatedbemp" enctype="multipart/form-data">
+        <div class="row">
+            <h1><b>การเเก้ไขข้อมูลพนักงาน</b></h1>
+            <h4>กรอกข้อมูล</h4>
+            <input type="hidden" name="id" value="{{ PD[0] }}">
+            
+            <label for="name">ชื่อพนักงาน:</label>
+            <input type="text" id="name" name="name" value="{{ PD[1] }}" required><br>
+
+            <label for="surname">นามสกุล:</label>
+            <input type="text" id="surname" name="surname" value="{{ PD[2] }}" required><br>
+            
+            <label for="gender">เพศ:</label><br>
+            <select id="gender" name="gender" required>
+                <option value="">โปรดเลือกเพศ</option>
+                <option value="ชาย" {% if PD[3] == 'ชาย' %}selected{% endif %}>ชาย</option>
+                <option value="หญิง" {% if PD[3] == 'หญิง' %}selected{% endif %}>หญิง</option>
+                <option value="เพศทางเลือก" {% if PD[3] == 'เพศทางเลือก' %}selected{% endif %}>เพศทางเลือก</option>
+            </select><br>
+
+            <div class="row">
+              <label for="birthday">วันเดือนปีเกิด:</label>
+              <input type="date" id="birthday" name="birthday" value="{{ PD[4] }}" required><br>
+            </div>
+            <label for="telenumber">เบอร์โทรศัพท์:</label>
+            <input type="text" id="telenumber" name="telenumber" value="{{ PD[5] }}" required><br>
+
+            <label for="email">อีเมล์:</label><br>
+            <input type="email" id="email" name="email" value="{{ PD[6] }}" required><br>
+
+            <label for="position">ตำเเหน่ง:</label>
+            <input type="text" id="position" name="position" value="{{ PD[7] }}" required><br>
+
+            <br><img src="{{PD[8]}}" alt="" style="width: 150px;" height="150px"><br>
+            <label for="userimage">รูปพนักงาน:</label>
+            <input type="file" id="userimage" name="userimage" value="{{ PD[8] }}"><br>
+
+            <label for="username">ไอดีสำหรับล็อคอิน:</label>
+            <input type="text" id="username" name="username" value="{{ PD[9] }}" required><br>
+
+            <label for="password">รหัสผ่าน:</label>
+            <input type="text" id="password" name="password" value="{{ PD[10] }}" required><br>
+
+            <div class="row">
+              <label for="status">สถานะการเป็นพนักงาน:</label><br>
+                <select id="status" name="status">
+                    <option value="">{{ PD[11] }}</option>
+                    <option value="ยังทำงานอยู่" {% if PD[11] == 'ยังทำงานอยู่' %}selected{% endif %}>ยังทำงานอยู่</option>
+                    <option value="ไม่ได้ทำงานแล้ว" {% if PD[11] == 'ไม่ได้ทำงานแล้ว' %}selected{% endif %}>ไม่ได้ทำงานแล้ว</option>
+                </select><br>
+            </div>
+
+
+            <label for="remark">หมายเหตุ:</label>
+            <input type="text" id="remark" name="remark" value="{{ PD[12] }}" required><br>
+
+            <label for="address">ที่อยู่:</label><br>
+            <input type="text" id="address" name="address" value="{{ PD[14] }}" required><br>
+            
+            <div class="row">
+              <label for="role">หน้าที่:</label><br>
+              <select id="role" name="role" required>
+                  <option value="">โปรดเลือกหน้าที่</option>
+                  <option value="admin" {% if PD[13] == 'admin' %}selected{% endif %}>admin</option>
+                  <option value="user" {% if PD[13] == 'user' %}selected{% endif %}>user</option>
+              </select><br>
+            </div>
+      
+
+
+            <br><input type="submit" value="อัปเดตข้อมูล">
+        </div>
+    </form>
+    </div>
+</body>
+</html>
+{% endblock %}

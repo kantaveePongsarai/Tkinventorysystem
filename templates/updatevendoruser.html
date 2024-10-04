@@ -1,0 +1,99 @@
+{% extends "baseuser.html" %}
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>อัปเดตข้อมูล</title>
+    <link rel="stylesheet" href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css">
+    <link rel="stylesheet" href="../static/css/insert.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        .container {
+          max-width: 800px;
+          margin: 0 auto;
+          padding: 50px;
+        }
+    
+        .row {
+          margin-bottom: 50px;
+        }
+    
+        .col-half {
+          width: 48%;
+          display: inline-block;
+          vertical-align: top;
+        }
+    
+        .col-third {
+          width: 30%;
+          display: inline-block;
+          margin-right: 5%;
+        }
+    
+        
+        .input-group {
+          position: relative;
+          margin-bottom: 10px;
+        }
+    
+        .input-group-icon {
+          display: flex;
+          align-items: center;
+        }
+    
+        .input-group-icon input {
+          padding-left: 30px;
+        }
+    
+        .input-icon {
+          position: absolute;
+          left: 10px;
+        }
+    
+        .input-icon i {
+          color: #999;
+        }
+      </style>
+</head>
+<body>
+    <div class="container">
+    <form method="POST" action="/updatevendoruser">
+        <div class="row">
+            <h1><b>การเเก้ไขข้อมูลผู้ขายผู้ผลิต</b></h1>
+            <h4>กรอกข้อมูล</h4><br>
+            <input type="hidden" name="id" value="{{ PD[0] }}">
+            
+            <label for="vdname">ชื่อบริษัท:</label>
+            <input type="text" id="vdname" name="vdname" value="{{ PD[1] }}" required><br>
+
+            <label for="vdsurname">ชื่อเซลหรือนักขาย:</label>
+            <input type="text" id="vdsurname" name="vdsurname" value="{{ PD[2] }}" required><br>
+            
+            <label for="identity">เลขประจําตัวผู้เสียภาษีอากร:</label>
+            <input type="text" id="identity" name="identity" value="{{ PD[3] }}" required><br>
+
+            <label for="email">อีเมล์:</label><br>
+            <input type="email" id="email" name="email" value="{{ PD[4] }}" required><br>
+
+            <label for="adress">ที่อยู่:</label><br>
+            <input type="text" id="adress" name="adress" value="{{ PD[5] }}" required><br>
+
+            <label for="date">วันที่บันทึกข้อมูล:</label><br>
+            <input type="date" id="date" name="date" value="{{ PD[6] }}" required><br>
+
+            <label for="remark">หมายเหตุ:</label><br>
+            <input type="text" id="remark" name="remark" value="{{ PD[7] }}" required><br>
+
+            <label for="Telenumber">เบอร์โทรศัพท์:</label><br>
+            <input type="text" id="Telenumber" name="Telenumber" value="{{ PD[8] }}" required><br>
+
+            <br><input type="submit" value="อัปเดตข้อมูล">
+        </div>
+    </form>
+    </div>
+</body>
+</html>
+{% endblock %}

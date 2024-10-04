@@ -1,0 +1,157 @@
+{% extends "base.html" %}
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Form Example</title>
+  <link rel='stylesheet' href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css'>
+  <link rel="stylesheet" href="../static/css/insert.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <style>
+    .container {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+
+    .row {
+      margin-bottom: 20px;
+    }
+
+    .col-half {
+      width: 48%;
+      display: inline-block;
+      vertical-align: top;
+    }
+
+    .col-third {
+      width: 30%;
+      display: inline-block;
+      margin-right: 5%;
+    }
+
+    .input-group {
+      position: relative;
+      margin-bottom: 10px;
+    }
+
+    .input-group-icon {
+      display: flex;
+      align-items: center;
+    }
+
+    .input-group-icon input {
+      padding-left: 30px;
+    }
+
+    .input-icon {
+      position: absolute;
+      left: 10px;
+    }
+
+    .input-icon i {
+      color: #999;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <form method="POST" action="/Storeinsertdb" enctype="multipart/form-data">
+      <label for="status" class="form-label" style="color: orange;">{{ status }}</label>
+
+      <div class="row">
+        <h1><b>การเพิ่มข้อมูลสินค้า</b></h1>
+        <h4>กรอกข้อมูล</h4>
+        <div class="input-group input-group-icon">
+          <input type="hidden" id="id" name="id" placeholder="รหัสสินค้า" readonly>
+        </div>
+        <label for="type">ชื่อสินค้า:</label>
+        <div class="input-group input-group-icon">
+          <input type="text" id="name" name="name" placeholder="ชื่อสินค้า" required>
+          <div class="input-icon"><i class="fa-solid fa-file-signature"></i></div>
+        </div>
+        <label for="user">เลือกรหัสพนักงาน:</label>
+        <div class="input-group input-group-icon">
+            <select id="user" class="form-control custom-select" name="user" required>
+                <option selected disabled>เลือกรหัสพนักงาน</option>
+                {% for user in users %}
+                    <option value="{{ user[0] }}">{{ user[1] }} {{ user[2] }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <label for="vendor">บริษัทที่จัดจำหน่ายสินค้า:</label>
+        <div class="input-group input-group-icon">
+            <select id="vendor" class="form-control custom-select" name="vendor" required>
+                <option selected disabled>เลือกบริษัทที่จัดจำหน่ายสินค้า</option>
+                {% for vendor in vendors %}
+                    <option value="{{ vendor[0] }}">{{ vendor[1] }}</option>
+                {% endfor %}
+            </select>
+        </div>
+      <div class="row">
+        <div class="col-half"></div>
+          <h4>ประเภทของเหล็กเส้น</h4>
+          <div class="input-group">
+            <label for="type">เลือกประเภทเหล็ก</label><br>
+            <select id="type" name="type">
+              <option value="เหล็กเส้นกลม">เหล็กเส้นกลม</option>
+              <option value="เหล็กข้ออ้อย">เหล็กข้ออ้อย</option>
+              <option value="เหล็กเส้นเเบน">เหล็กเส้นเเบน</option>
+            </select>
+          </div>
+        </div>
+        <div class="col-half">
+          <h4>วันที่บันทึกข้อมูล</h4>
+          <div class="input-group">
+            <input type="date" id="date" name="date" placeholder="วันที่บันทึกข้อมูล" required>
+          </div>
+        </div>
+
+        <div class="col-half">
+          <h4>ราคาต้นทุนรวมภาษี : (บาท)</h4>
+          <div class="input-group">
+            <input type="text" id="amountvat" name="amountvat" placeholder="ราคาต้นทุนรวมภาษี" required>
+          </div>
+        </div>
+        <div class="col-half">
+          <h4>จำนวน : (เส้น)</h4>
+          <div class="input-group">
+            <input type="text" id="quantity" name="quantity" placeholder="จำนวน" required>
+          </div>
+        </div>
+        <div class="col-half">
+          <h4>น้ำหนัก : (กิโลกรัม)</h4>
+          <div class="input-group">
+            <input type="text" id="wight" name="wight" placeholder="น้ำหนัก" required>
+          </div>
+        </div>
+        <div class="col-half">
+          <h4>รูปสินค้า</h4>
+          <div class="input-group">
+            <input type="file" name="Porimage" accept="image/*" required>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <h4>กดช่องสี่เหลี่ยมก่อนกดยืนยันการเพิ่มข้อมูล</h4>
+        <div class="input-group">
+          <input id="terms" type="checkbox" required>
+          <label for="terms">กรุณาตรวจสอบข้อมูลอีกครั้งก่อนกดยืนยัน ขอบคุณครับ.</label>
+        </div>
+      </div>
+      <div class="row">
+        <input type="submit" value="ยืนยันการเพิ่มข้อมูล">
+      </div>
+    </form>
+    
+  </div>
+</body>
+
+</html>
+{% endblock %}

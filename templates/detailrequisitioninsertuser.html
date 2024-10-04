@@ -1,0 +1,151 @@
+{% extends "baseuser.html" %}
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Form Example</title>
+  <link rel='stylesheet' href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css'>
+  <link rel="stylesheet" href="../static/css/insert.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <style>
+    .container {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+
+    .row {
+      margin-bottom: 20px;
+    }
+
+    .col-half {
+      width: 48%;
+      display: inline-block;
+      vertical-align: top;
+    }
+
+    .col-third {
+      width: 30%;
+      display: inline-block;
+      margin-right: 5%;
+    }
+
+    .input-group {
+      position: relative;
+      margin-bottom: 10px;
+    }
+
+    .input-group-icon {
+      display: flex;
+      align-items: center;
+    }
+
+    .input-group-icon input {
+      padding-left: 30px;
+    }
+
+    .input-icon {
+      position: absolute;
+      left: 10px;
+    }
+
+    .input-icon i {
+      color: #999;
+    }
+  </style>
+</head>
+
+<body>
+    <div class="container">
+    <form method="POST" action="/detailrequisitioninsertdbu">
+        <label for="status" class="form-label" style="color: orange;">{{ status }}</label>
+        <input type="hidden" id="id" name="id" placeholder="รหัสรายละเอียดใบเสนอซื้อ" readonly>
+        <input type="hidden" id="Req_Materials_ID" name="Req_Materials_ID" value="{{ Req_Materials_ID }}">
+
+        <div class="row">
+          <h1><b>การเพิ่มข้อมูลรายละเอียดใบเบิกวัสดุอุปกรณ์</b></h1>
+          <h4>กรอกข้อมูล</h4><br>
+          
+          <div class="input-group input-group-icon">
+            <select id="Materials_ID" class="form-control custom-select" name="Materials_ID" required>
+                <option selected disabled>เลือกวัสดุ</option>
+                {% for materials in material %}
+                    <option value="{{ materials[0] }}">{{ materials[1] }}</option>
+                {% endfor %}
+            </select>
+          </div>
+
+          <div id="material-details"></div>
+
+          <label for="type">จำนวนวัสดุ:</label>
+          <div class="input-group input-group-icon">
+            <input type="text" id="quantity" name="quantity" placeholder="จำนวนวัสดุ" required>
+            <div class="input-icon"><i class="fa-solid fa-user"></i></div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-half">
+            <h4>วันที่บันทึกข้อมูล</h4>
+            <div class="input-group">
+              <input type="date" id="date" name="date" placeholder="วันที่บันทึกข้อมูล" required>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <h4>กดช่องสี่เหลี่ยมก่อนกดยืนยันการเพิ่มข้อมูล</h4>
+          <div class="input-group">
+            <input id="terms" type="checkbox" required>
+            <label for="terms">กรุณาตรวจสอบข้อมูลอีกครั้งก่อนกดยืนยัน ขอบคุณครับ.</label>
+          </div>
+        </div>
+        <div class="row">
+          <input type="submit" value="ยืนยันการเพิ่มข้อมูล">
+        </div>
+    </form> 
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            $('#Materials_ID').change(function() {
+                var materialId = $(this).val();
+                if (materialId) {
+                    $.ajax({
+                        url: '/get_materials_info/' + materialId,
+                        type: 'GET',
+                        success: function(data) {
+                            $('#material-details').html(data);
+                        },
+                        error: function() {
+                            $('#material-details').html('<p>เกิดข้อผิดพลาดในการดึงข้อมูล</p>');
+                        }
+                    });
+                } else {
+                    $('#material-details').html('');
+                }
+            });
+
+            $('form').submit(function(event) {
+                var quantity = parseInt($('#quantity').val(), 10);
+                var availableStockText = $('#material-details').find('#available-stock').text().trim();
+                var availableStock = parseInt(availableStockText, 10);
+
+                console.log('Quantity:', quantity); // Debugging output
+                console.log('Available Stock:', availableStock); // Debugging output
+
+                if (quantity > availableStock) {
+                    alert('จำนวนวัสดุมากกว่าที่มีอยู่ในคลัง');
+                    event.preventDefault(); // Prevent form submission
+                }
+            });
+        });
+    </script>
+</body>
+
+</html>
+{% endblock %}

@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+  <meta charset="UTF-8">
+  <title>document</title>
+  <link rel='stylesheet' href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css'><link rel="stylesheet" href="../static/css/base.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+        <!-- partial:index.partial.html -->
+        <div class="sidebar">
+          <div class="logo-details">
+            <div class="logo_name">Tk Management</div>
+            <i class='bx bx-menu' id="btn"></i>
+          </div>
+          <ul class="nav-list">
+            <li>
+                <a href="/admin_dashboard">
+                    <i class='bx bx-bar-chart-alt-2' ></i>
+                  <span class="links_name">dashborad</span>
+                </a>
+                <span class="tooltip">dashborad</span>
+            </li>
+            <li>
+              <a href="/emp">
+                <i class='bx bxs-user-circle' ></i>
+                <span class="links_name">การจัดการข้อมูลพนักงาน</span>
+              </a>
+              <span class="tooltip">การจัดการข้อมูลพนักงาน</span>
+            </li>
+            <li>
+              <a href="/Store">
+                <i class='bx bxs-store' ></i>
+                <span class="links_name">จัดการข้อมูลสินค้า</span>
+              </a>
+              <span class="tooltip">จัดการข้อมูลสินค้า</span>
+            </li>
+            <li>
+                <a href="/customer">
+                    <i class='bx bx-child'></i>
+                  <span class="links_name">จัดการข้อมูลลูกค้า</span>
+                </a>
+                <span class="tooltip">จัดการข้อมูลลูกค้า</span>
+            </li>
+            <li>
+                <a href="/vendor">
+                    <i class='bx bx-child'></i>
+                  <span class="links_name">จัดการข้อมูลผู้ขายผู้ผลิต</span>
+                </a>
+                <span class="tooltip">จัดการข้อมูลผู้ขายผู้ผลิต</span>
+            </li>
+            <li>
+                <a href="/materials1">
+                  <i class='bx bxs-store' ></i>
+                  <span class="links_name">จัดการข้อมูลวัสดุอุปกรณ์</span>
+                </a>
+                <span class="tooltip">จัดการข้อมูลวัสดุอุปกรณ์</span>
+            </li>
+            <li>
+                <a href="/purchaseOrder">
+                    <i class='bx bx-book-open'></i>
+                  <span class="links_name">จัดการข้อมูลใบเสนอซื้อ</span>
+                </a>
+                <span class="tooltip">จัดการข้อมูลใบเสนอซื้อ</span>
+            </li>
+            <li>
+                <a href="/purchaesSL">
+                    <i class='bx bx-book-open'></i>
+                  <span class="links_name">จัดการข้อมูลใบเสนอขาย</span>
+                </a>
+                <span class="tooltip">จัดการข้อมูลใบเสนอขาย</span>
+            </li>
+            <li>
+                <a href="/requisition">
+                    <i class='bx bx-book-open'></i>
+                  <span class="links_name">จัดการข้อมูลใบเบิกวัสดุ</span>
+                </a>
+                <span class="tooltip">จัดการข้อมูลใบเบิกวัสดุ</span>
+            </li>
+            <li>
+              <a href="/payment">
+                  <i class='bx bx-book-open'></i>
+                <span class="links_name">การจัดการชำระเงิน</span>
+              </a>
+              <span class="tooltip">การจัดการชำระเงิน</span>
+            </li>
+            <li class="profile">
+              <i class='bx bx-log-out' id="log_out"></i>
+              <a href="{{ url_for('logout') }}" class="btn">Logout</a>
+            </li>
+          </ul>
+        </div>
+          
+    <section class="home-section">
+        {% block content %}
+        {% endblock %}
+    </section>
+    <script  src="../static/js/script.js"></script>
+</body>
+</html>

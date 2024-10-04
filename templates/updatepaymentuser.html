@@ -1,0 +1,127 @@
+{% extends "baseuser.html" %}
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>อัปเดตข้อมูล</title>
+    <link rel="stylesheet" href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css">
+    <link rel="stylesheet" href="../static/css/insert.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        .container {
+          max-width: 800px;
+          margin: 0 auto;
+          padding: 50px;
+        }
+    
+        .row {
+          margin-bottom: 50px;
+        }
+    
+        .col-half {
+          width: 48%;
+          display: inline-block;
+          vertical-align: top;
+        }
+    
+        .col-third {
+          width: 30%;
+          display: inline-block;
+          margin-right: 5%;
+        }
+    
+        
+        .input-group {
+          position: relative;
+          margin-bottom: 10px;
+        }
+    
+        .input-group-icon {
+          display: flex;
+          align-items: center;
+        }
+    
+        .input-group-icon input {
+          padding-left: 30px;
+        }
+    
+        .input-icon {
+          position: absolute;
+          left: 10px;
+        }
+    
+        .input-icon i {
+          color: #999;
+        }
+        .title{
+          text-align: center;
+          margin-bottom: 50px;
+        }
+        .title h1 {
+          text-align: right;
+          color: #ea0a0a;
+        }
+        .title img{
+          width: 150px;
+          height: 150px;
+        }
+      </style>
+</head>
+<body>
+    <div class="container">
+        <form method="POST" action="/updatepaymentuser" enctype="multipart/form-data">
+            <div class="row">
+              <div class="title">
+                <img src="../static/image/TKB1.png" alt="">
+                <h1>ใบสั่งขายที่ : {{PD[6]}}</h1>
+                <h1>จำนวนเงินที่ต้องชำระ : {{ '{:,.2f}'.format(PD[7]) if PD[7] else '' }} บาท</h1>
+              </div>
+
+                <h1><b>การเเก้ไขข้อมูลการชำระ</b></h1>
+                <h4>กรอกข้อมูล</h4>
+                <input type="hidden" name="id" value="{{ PD[0] }}">
+                
+                <br><label for="Bank">ธนาคาร:</label><br>
+                <select id="Bank" name="Bank" required>
+                    <option value="">โปรดเลือกธนาคาร</option>
+                    <option value="กสิกร" {% if PD[1] == 'กสิกร' %}selected{% endif %}>กสิกร</option>
+                    <option value="ไทยพาณิช" {% if PD[1] == 'ไทยพาณิช' %}selected{% endif %}>ไทยพาณิช</option>
+                    <option value="กรุงไทย" {% if PD[1] == 'กรุงไทย' %}selected{% endif %}>กรุงไทย</option>
+                    <option value="กรุงศรี" {% if PD[1] == 'กรุงศรี' %}selected{% endif %}>กรุงศรี</option>
+                    <option value="กรุงเทพ" {% if PD[1] == 'กรุงเทพ' %}selected{% endif %}>กรุงเทพ</option>
+                    <option value="ออมสิน" {% if PD[1] == 'ออมสิน' %}selected{% endif %}>ออมสิน</option>
+                    <option value="ทหารไทย" {% if PD[1] == 'ทหารไทย' %}selected{% endif %}>ทหารไทย</option>
+                </select><br>
+
+                <br><label for="Payment_money">จำนวนเงินที่ชำระ:</label>
+                <input type="text" id="Payment_money" name="Payment_money" value="{{ PD[2] }}" required><br>
+                
+                <label for="PaymentDT">วันที่ชำระ:</label>
+                <input type="datetime-local" id="PaymentDT" name="PaymentDT" value="{{ PD[3] }}" ><br>
+                
+                <label for="Remark">หมายเหตุ:</label>
+                <input type="text" id="Remark" name="Remark" value="{{ PD[4] }}" required><br>
+                
+                <label for="PaymentImage">หลักฐานการชำระ:</label>
+                <input type="file" id="PaymentImage" name="PaymentImage" value="{{ PD[5] }}" required><br>
+                
+                <input type="hidden" id="Pur_Orderseller_ID" name="Pur_Orderseller_ID" value="{{ PD[6] }}" readonly><br>
+                
+                <label for="status">สถานะการชำระ:</label><br>
+                <select id="status" name="status" required>
+                    <option value="">โปรดเลือกสถานะการชำระ</option>
+                    <option value="ชำระเเล้ว" {% if PD[7] == 'ชำระเเล้ว' %}selected{% endif %}>ชำระเเล้ว</option>
+                    <option value="ยังไม่ชำระ" {% if PD[7] == 'ยังไม่ชำระ' %}selected{% endif %}>ยังไม่ชำระ</option>
+                </select><br>
+                
+                <label for="อัพเดตข้อมูล"></label><br>
+                <br><input type="submit" value="อัปเดตข้อมูล">
+            </div>
+        </form>
+    </div>
+</body>
+</html>
+{% endblock %}

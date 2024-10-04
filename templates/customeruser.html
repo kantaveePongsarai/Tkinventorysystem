@@ -1,0 +1,217 @@
+{% extends "baseuser.html" %}
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Store</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto|Varela+Round">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <style>
+        
+        .container {
+            padding-right: 15px;
+            padding-left: 15px;
+            margin-right: auto;
+            margin-left: auto;
+        }
+        
+        .container--card{
+            background: #ffffff;
+            padding: 2rem;
+            border-radius: 10px;
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px; /* ระยะห่างระหว่าง .card-container */
+          }
+          
+          @import url('https://fonts.googleapis.com/css?family=Montserrat');
+          
+          * {
+              box-sizing: border-box;
+          }
+          
+          h3 {
+              margin: 10px 0;
+          }
+          h4{
+            color: #000000;
+          }
+          h5{
+            color: #000000;
+          }
+          h6 {
+                color: #000;
+              margin: 5px 0;
+              text-transform: uppercase;
+          }
+          
+          p {
+            color: #000000;
+              font-size: 14px;
+              line-height: 21px;
+          }
+          
+          .card-container {
+            background: linear-gradient(to bottom, #79b3f4, #ffffff);
+            border-radius: 5px;
+            box-shadow: 0px 10px 20px -10px rgba(0,0,0,0.75);
+            color: #B3B8CD;
+            padding-top: 30px;
+            position: relative;
+            width: 350px;
+            max-width: 100%;
+            text-align: center;
+            margin-bottom: 20px; /* ระยะห่างด้านล่างของ .card-container */
+          }
+          
+          .card-container .pro {
+              color: #231E39;
+              background-color: #FEBB0B;
+              border-radius: 3px;
+              font-size: 14px;
+              font-weight: bold;
+              padding: 3px 7px;
+              position: absolute;
+              top: 30px;
+              left: 30px;
+          }
+          
+          .card-container .round {
+              border: 1px solid #ffffff;
+              border-radius: 50%;
+              padding: 7px;
+              width: 200px;
+              height: 200px;
+          }
+          
+          button.primary {
+              background-color: #03BFCB;
+              border: 1px solid #03BFCB;
+              border-radius: 3px;
+              color: #231E39;
+              font-family: Montserrat, sans-serif;
+              font-weight: 500;
+              padding: 10px 25px;
+          }
+          
+          button.primary.ghost {
+              background-color: #fa4d4d;
+              color: #0e0505;
+              
+          }
+          button.primary.insert {
+            background-color: #3caac3;
+            color: #ffffff;
+        }
+          
+          .skills {
+              background: linear-gradient(to center, #86b2e3, #ffffff);
+              box-shadow: 0px 10px 20px -10px rgba(0,0,0,0.75);
+              text-align: left;
+              padding: 15px;
+              margin-top: 30px;
+          }
+          
+          .skills ul {
+              list-style-type: none;
+              margin: 0;
+              padding: 0;
+              color: #000;
+          }
+          
+          .skills ul li {
+              border: 1px solid #2D2747;
+              border-radius: 2px;
+              display: inline-block;
+              font-size: 12px;
+              margin: 0 7px 7px 0;
+              padding: 7px;
+          }
+          .main-title{
+            color: #1d1b31;
+            padding-bottom: 10px;
+            font-size:20px;
+            color: #0397d6;
+            text-align: center;
+            background-color: #fff;
+            border-radius: 5px;
+            padding: 2rem;
+            font-weight: bold;
+          }
+          .buttons1{
+            margin-top: 25px;
+            margin-bottom: 25px;
+          }
+    </style>
+    <script>
+        $(document).ready(function () {
+            $('[data-toggle="tooltip"]').tooltip();
+        });
+    </script>
+</head>
+
+<body>
+    
+    <div class="container">
+        <h1 class="main-title">การจัดการข้อมูลลูกค้า
+            <div class="buttons1">
+                <a href="/customerinsertuser">
+                    <button class="primary insert">
+                        เพิ่มข้อมูล
+                    </button>
+                </a><br>
+                
+                <form action="/searchcus" method="GET" class="form-inline mb-3"><br>
+                    <input type="text" class="form-control mx-sm-3" id="searchField" name="search_query" placeholder="ค้นหาข้อมูลลูกค้า">
+                    <button type="submit" class="btn btn-primary">ค้นหาข้อมูล</button>
+                    <a href="/customer">
+                        <button type="submit" class="btn btn-primary">ย้อนกลับ</button>
+                    </a><br>
+                </form>
+            </div>
+        </h1>
+        <div class="container--card">
+                {% for row in data %}
+                <div class="card-container">
+                    <img class="round" src="../static/image/219986.png" alt="user" />
+                    <h4>รหัสลูกค้า : {{ row[0] }}</h4>
+                    <h5>ชื่อ-นามสกุล : {{ row[1] }}  {{ row[2] }}</h5>
+                    <div class="buttons">
+                        <a href="/editcustomeruser/{{ row[0] }}">
+                            <button class="primary">
+                                เเก้ไขข้อมูล
+                            </button>
+                        </a>
+                        <a href="/deletecustomeruser/{{ row[0] }}">
+                            <button class="primary ghost">
+                                ลบข้อมูล
+                            </button>
+                        </a>
+                    </div>
+                    <div class="skills">
+                        <h6>ข้อมูลลูกค้า</h6>
+                        <ul>
+                            <li>เลขผู้เสียภาษี หรือ เลขบัตรประชาชน : {{ row[3] }}</li>
+                            <li>Email : {{ row[4] }}</li><br/>
+                            <li>ที่อยู่ : {{ row[5] }}</li><br>
+                            <li>เบอร์โทรศัพท์ : {{ row[6] }}</li><br>
+                        </ul>
+                    </div>
+                </div>
+                {% endfor %}
+        
+        </div>
+    </div>
+</body>
+
+</html>
+{% endblock %}
+

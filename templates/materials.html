@@ -1,0 +1,132 @@
+{% extends "base.html" %}
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/Mater.css') }}">
+    <style>
+        .card--container {
+            background-color: #ffffff;
+            padding: 2rem;
+            border-radius: 10px;
+            margin: auto;
+            max-width: 100%;
+            max-height: 100%;
+        }
+        @import url('https://fonts.googleapis.com/css?family=Montserrat');
+          
+          * {
+              box-sizing: border-box;
+          }
+          
+          h3 {
+              margin: 10px 0;
+          }
+          
+          h6 {
+              margin: 5px 0;
+              text-transform: uppercase;
+          }
+          
+          p {
+              font-size: 14px;
+              line-height: 21px;
+          }
+          
+          button.primary {
+              background-color: #03BFCB;
+              border: 1px solid #03BFCB;
+              border-radius: 3px;
+              color: #231E39;
+              font-family: Montserrat, sans-serif;
+              font-weight: 500;
+              padding: 10px 25px;
+          }
+          
+          button.primary.ghost {
+              background-color: #fa4d4d;
+              color: #0e0505;
+              
+          }
+          button.primary.insert {
+            background-color: #3caac3;
+            color: #ffffff;
+        }
+          
+          .skills {
+              background-color: #1F1A36;
+              text-align: left;
+              padding: 15px;
+              margin-top: 30px;
+          }
+          
+          .skills ul {
+              list-style-type: none;
+              margin: 0;
+              padding: 0;
+          }
+          
+          .skills ul li {
+              border: 1px solid #2D2747;
+              border-radius: 2px;
+              display: inline-block;
+              font-size: 12px;
+              margin: 0 7px 7px 0;
+              padding: 7px;
+          }
+          .main-title{
+            color: #1d1b31;
+            padding-bottom: 10px;
+            font-size:20px;
+            color: #0397d6;
+            text-align: center;
+            background-color: #c1dbf1;
+            border-radius: 5px;
+            padding: 2rem;
+            font-weight: bold;
+          }
+          .buttons1{
+            margin-top: 25px;
+            margin-bottom: 25px;
+          }
+    </style>
+</head>
+<body>
+    <div class="card--container">
+        <h1 class="main-title">การจัดการข้อมูลวัสดุอุปกรณ์
+            <div class="buttons1">
+                <a href="/materialinsert">
+                    <button class="primary insert">
+                        เพิ่มข้อมูล
+                    </button>
+                </a><br>
+            </div>
+        </h1>
+        <div class="container">
+            <header>
+                <div class="title">Materials <p>วัสดุอุปกรณ์</p></div>
+                <div class="icon-cart">
+                    <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 18 20">
+                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 15a2 2 0 1 0 0 4 2 2 0 0 0 0-4Zm0 0h8m-8 0-1-4m9 4a2 2 0 1 0 0 4 2 2 0 0 0 0-4Zm-9-4h10l2-7H3m2 7L3 4m0 0-.792-3H1"/>
+                    </svg>
+                    <span>0</span>
+                </div>
+            </header>
+            <div class="listProduct"></div>
+        </div>
+        <div class="cartTab">
+            <h1>ทำการเบิกวัสดุอุปกรณ์</h1>
+            <div class="listCart"></div>
+            <div class="btn">
+                <button class="close">ปิดเเถบ</button>
+                <button class="checkOut">สร้างใบเบิกวัสดุ</button>
+            </div>
+        </div>
+    </div>
+    <script src="{{ url_for('static', filename='js/app.js') }}"></script>
+</body>
+</html>
+{% endblock %}

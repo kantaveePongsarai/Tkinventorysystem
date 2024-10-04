@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://kit.fontawesome.com/c9f5871d83.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="static/css/login.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script> <!-- Include SweetAlert2 -->
+    <title>login</title>
+</head>
+<body>
+    <div class="background"></div>
+    <section class="home">
+        <div class="content">
+            <a><img src="../static/image/TKB1.png" width="100" height="100" alt=""></a>
+            <h2>Welcome!</h2>
+            <h3>To TK Inventory System Online</h3>
+            <pre>นี่คือจัดการข้อมูลคงคลังบริษัททีเค เเมนเนจเมนท์ จำกัด.
+                กรุณาลงชื่อเข้าใช้เพื่อจัดการคงคลัง</pre>
+            <div class="icon">
+                <i class="fa-brands fa-instagram"></i>
+                <i class="fa-brands fa-facebook"></i>
+                <i class="fa-brands fa-twitter"></i>
+                <i class="fa-brands fa-line"></i>
+            </div>
+        </div>
+        
+        <div class="login">
+            <form method="POST" action="/login">
+                <div class="input">
+                    <input type="text" class="input1" placeholder="username" id="username" name="username" required>
+                    <i class="fa-solid fa-envelope"></i>
+                </div>
+                <div class="input">
+                    <input type="password" class="input1" placeholder="password" id="password" name="password" required>
+                    <i class="fa-solid fa-lock"></i>
+                </div>
+                <div class="check">
+                    <label><input type="checkbox">Remember me</label>
+                </div>
+                <div class="button">
+                    <button class="btn"> Sign In </button>
+                </div>
+            </form>
+        </div>
+    </section>
+    
+    <script>
+        window.onload = function() {
+            var msg = "{{ msg }}";
+            if (msg && msg.trim() === "Incorrect username / password !") {
+                Swal.fire({
+                    icon: 'เกิดข้อผิดพลาด',
+                    title: "<strong>ลงชื่อเข้าใช้ไม่สำเร็จ</strong>",
+                    html: `
+                        <b>คุณใส่ชื่อผู้ใช้หรือรหัสผ่านผิด กรุณาลองใหม่อีกครั้ง</b>.
+                        
+                    `,
+                    showCloseButton: true,
+                    showCancelButton: true,
+                    focusConfirm: false,
+                    confirmButtonText: `
+                        <i class="fa fa-circle-o-notch" aria-hidden="true"></i> Try Again
+                    `,
+                    confirmButtonAriaLabel: "Try Again",
+                    cancelButtonText: `
+                         Cancel
+                    `,
+                    cancelButtonAriaLabel: "Cancel"
+                });
+            }
+        }
+    </script>
+</body>
+</html>

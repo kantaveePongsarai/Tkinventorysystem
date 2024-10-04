@@ -1,0 +1,489 @@
+{% extends "base.html" %}
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>admindash</title>
+    <link rel='stylesheet' href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css'><link rel="stylesheet" href="../static/css/admin.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <meta name="description" content="An example pen showing how a basic CSS Grid container can create a nice, responsive card layout.">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <script src="https://code.highcharts.com/highcharts.js"></script>
+    <script src="https://code.highcharts.com/modules/exporting.js"></script>
+    <script src="https://code.highcharts.com/modules/export-data.js"></script>
+    <script src="https://code.highcharts.com/modules/accessibility.js"></script>
+    <script src="https://code.highcharts.com/highcharts.js"></script>
+    <script src="https://code.highcharts.com/modules/exporting.js"></script>
+    <script src="https://code.highcharts.com/modules/accessibility.js"></script>
+    <style>
+        .highcharts-figure,
+        .highcharts-data-table table {
+            min-width: 310px;
+            max-width: 800px;
+            margin: 1em auto;
+        }
+        
+        #container {
+            height: 400px;
+        }
+        
+        #container1 {
+            height: 400px;
+        }
+        .highcharts-data-table table {
+            font-family: Verdana, sans-serif;
+            border-collapse: collapse;
+            border: 1px solid #ebebeb;
+            margin: 10px auto;
+            text-align: center;
+            width: 100%;
+            max-width: 500px;
+        }
+        
+        .highcharts-data-table caption {
+            padding: 1em 0;
+            font-size: 1.2em;
+            color: #555;
+        }
+        
+        .highcharts-data-table th {
+            font-weight: 600;
+            padding: 0.5em;
+        }
+        
+        .highcharts-data-table td,
+        .highcharts-data-table th,
+        .highcharts-data-table caption {
+            padding: 0.5em;
+        }
+        
+        .highcharts-data-table thead tr,
+        .highcharts-data-table tr:nth-child(even) {
+            background: #f8f8f8;
+        }
+        
+        .highcharts-data-table tr:hover {
+            background: #f1f7ff;
+        }
+        
+        .highcharts-figure1,
+.highcharts-data-table table {
+    min-width: 320px;
+    max-width: 800px;
+    margin: 1em auto;
+}
+
+.highcharts-data-table table {
+    font-family: Verdana, sans-serif;
+    border-collapse: collapse;
+    border: 1px solid #ebebeb;
+    margin: 10px auto;
+    text-align: center;
+    width: 100%;
+    max-width: 500px;
+}
+
+.highcharts-data-table caption {
+    padding: 1em 0;
+    font-size: 1.2em;
+    color: #555;
+}
+
+.highcharts-data-table th {
+    font-weight: 600;
+    padding: 0.5em;
+}
+
+.highcharts-data-table td,
+.highcharts-data-table th,
+.highcharts-data-table caption {
+    padding: 0.5em;
+}
+
+.highcharts-data-table thead tr,
+.highcharts-data-table tr:nth-child(even) {
+    background: #f8f8f8;
+}
+
+.highcharts-data-table tr:hover {
+    background: #f1f7ff;
+}
+
+input[type="number"] {
+    min-width: 50px;
+}
+
+
+    </style>
+</head>
+<body>
+    <div class="main--content">
+        <div class="header--wrapper">
+            <div class="header--title">
+                <img src="./static/image/TKB1.png" alt="">
+                <span>TK Management co.ltd</span>
+                <h2>inventory System Online</h2>
+            </div>
+            <div class="user--info">
+                
+                <img src="{{ user_info['userimage']}}" alt=""><p><h5>({{user_info['role']}})</h5>{{user_info['Name']}}   {{user_info['Surname']}}</p>
+            </div>
+        </div>
+    </div>
+    <div class="card--container">
+        <h3 class="main--title">จำนวนเงินทุน</h3>
+        <div class="card--warpper">
+            <div class="Funding--card light-red">
+                <div class="card--header">
+                    <div class="amount">
+                        <span class="title">กำไรจากการรับ-จ่าย</span>
+                        <!-- กำหนดค่าเริ่มต้นเป็น 0 เมื่อ total ไม่มีข้อมูล -->
+                        <span class="amount-value">
+                            {% if total is not none %}
+                                {{ '{:,.2f}'.format(total) }}
+                            {% else %}
+                                0.00
+                            {% endif %}
+                        </span>
+                    </div>
+                    <i class="fa-solid fa-baht-sign icon dark-red"></i>
+                </div>
+                <span class="card-detail"></span>
+            </div>
+            
+            <div class="Funding--card light-green">
+                <div class="card--header">
+                    <div class="amount">
+                        <span class="title">รายรับ</span>
+                        <span class="amount-value">
+                            {% if revenue['total_revenue'] is not none %}
+                                {{ '{:,.2f}'.format(revenue['total_revenue']) }}
+                            {% else %}
+                                0.00
+                            {% endif %}
+                        </span>
+                    </div>
+                    <i class="fa-solid fa-baht-sign icon dark-green"></i>
+                </div>
+                <a href="/payment">
+                    <span class="card-detail">
+                        ชำระเเล้ว : 
+                        {% if revenue['total_payments'] is not none %}
+                            {{ revenue['total_payments'] }}
+                        {% else %}
+                            0
+                        {% endif %}
+                        รายการ
+                    </span>
+                </a>
+            </div>
+
+            <div class="Funding--card light-purple">
+                <div class="card--header">
+                    <div class="amount">
+                        <span class="title">รายจ่าย</span>
+                        <!-- ตรวจสอบว่า purorder ไม่เป็น None และ totalunicost มีค่า -->
+                        <span class="amount-value">
+                            {% if purorder is not none and purorder['totalunicost'] is not none %}
+                                {{ '{:,.2f}'.format(purorder['totalunicost']) }}
+                            {% else %}
+                                {{ '0.00' }}
+                            {% endif %}
+                        </span>
+                    </div>
+                    <i class="fa-solid fa-baht-sign icon dark-purple"></i>
+                </div>
+                <a href="/purchaseOrder">
+                    <span class="card-detail">ซื้อสินค้า : {{ purorder['PurordId']|default(0) }} รายการ</span>
+                </a>
+            </div>
+            
+
+            <div class="Funding--card light-blue">
+                <div class="card--header">
+                    <div class="amount">
+                        <span class="title">กำไรสุทธิจากการขายสินค้า</span>
+                        <span class="amount-value">
+                            {% if profit is not none %}
+                                {{ '{:,.2f}'.format(profit) }}
+                            {% else %}
+                                {{ '0.00' }}
+                            {% endif %}
+                        </span>
+                    </div>
+                    <i class="fa-solid fa-baht-sign icon dark-blue"></i>
+                </div>
+                <span class="card-detail">
+                    คิดเป็น: 
+                    {% if profitper is not none %}
+                        {{ '%.2f' % profitper }}%
+                    {% else %}
+                        0.00%
+                    {% endif %}
+                </span>
+            </div>
+        </div>
+    </div>
+    <div class="card--containerchart">
+        <div class="card--left1">
+            <figure class="highcharts-figure">
+                <div id="container"></div>
+                <p class="highcharts-description">
+                   
+                </p>
+            </figure>
+        </div>
+        <div class="card--right2">
+            <figure class="highcharts-figure">
+                <div id="container1"></div>
+                <p class="highcharts-description">
+                </p>
+            </figure>
+        </div>
+    </div>
+    <div class="card-container1">
+        <h2 class="main--title1">ข้อมูลสินค้าคงคลัง</h2>
+        <div class="card-container1">
+            <div class="cardpro">
+                <img src="../static/image/ironooy.webp">
+                <div class="cardpro-content">
+                    <h3>{{ ironooy[0]['type'] }}</h3>
+                    {% for ooy in ironooy %}
+                        {% if ooy['quan'] <= 0 %}
+                            <p>ชื่อ : {{ooy.proname}}</p>
+                            <p>จำนวนสินค้าคงคลัง : สินค้าหมด</p>
+                        {% else %}
+                            <p>ชื่อ : {{ooy.proname}}</p>
+                            <p>จำนวนสินค้าคงคลัง : {{ ooy.quan }} (เส้น)</p>
+                        {% endif %}<br>
+                    {% endfor %}
+                </div>
+            </div>
+            <div class="cardpro">
+                <img src="../static/image/ban.jpg">
+                <div class="cardpro-content">
+                    <h3>{{ ironban[0]['type'] }}</h3> 
+                    {% for ban in ironban %}
+                        {% if ban['quan'] <= 0 %}
+                            <p>ชื่อ : {{ban.proname}}</p>
+                            <p>จำนวนสินค้าคงคลัง : สินค้าหมด</p>
+                        {% else %}
+                            <p>ชื่อ : {{ban.proname}}</p>
+                            <p>จำนวนสินค้าคงคลัง : {{ ban.quan }} (เส้น)</p>
+                        {% endif %}<br>
+                    {% endfor %}
+                </div>
+            </div>
+            <div class="cardpro">
+                <img src="../static/image/25571221_093959_product_24_800_600.jpg">
+                <div class="cardpro-content">
+                    <h3>{{ ironkom[0]['type'] }}</h3> 
+                    {% for kom in ironkom %}
+                        {% if kom['quan'] <= 0 %}
+                            <p>จำนวนสินค้าคงคลัง : สินค้าหมด</p>
+                        {% else %}
+                            <p>ชื่อ : {{kom.proname}}</p>
+                            <p>จำนวนสินค้าคงคลัง : {{ kom.quan }} (เส้น)</p>
+                        {% endif %}<br>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="tabular--warpper">
+        <div class="card--left">
+            
+            <h3 class="main--title">ข้อมูลการจัดขายที่ทำการชำระเเล้ว</h3>
+            <div class="table-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>รหัสการชำระ</th>
+                            <th>วันที่บันทึกข้อมูล</th>
+                            <th>ชื่อ-นามสกุล</th>
+                            <th>ชื่อ-นามสกุล</th>
+                            <th>ราคาชำระ</th>
+                            <th>สถานะการชำระ</th>
+                        </tr>
+                        <tbody>
+                            {% for pay in payments %}
+                            <tr>
+                                <td>{{ pay.payid }}</td>
+                                <td>{{ pay.date }}</td>
+                                <td>{{ pay.cname }} {{ pay.csurname }}</td>
+                                <td>{{ pay.uname }} {{ pay.usurname }}</td>
+                                <td>{{ pay.total }}</td>
+                                <td>{{ pay.status }}</td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                        <tfoot>
+                            <tr>
+                                <td colspan="7">จำนวนใบสั่งขายที่ชำระเเล้ว:{{revenue['total_payments']}} </td>
+                            </tr>
+                        </tfoot>
+                    </thead>
+                </table>
+            </div>
+        </div>
+        <div class="card--right">
+            <h3 class="main--title">ข้อมูลการจัดซื้อเเละขาย</h3>
+            <div class="table-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>รหัสการชำระ</th>
+                            <th>วันที่บันทึกข้อมูล</th>
+                            <th>ชื่อ-นามสกุล</th>
+                            <th>ชื่อ-นามสกุล</th>
+                            <th>ราคาชำระ</th>
+                            <th>สถานะการชำระ</th>
+                        </tr>
+                        <tbody>
+                            {% for pay in paymentns %}
+                            <tr>
+                                <td>{{ pay.payid }}</td>
+                                <td>{{ pay.date }}</td>
+                                <td>{{ pay.cname }} {{ pay.csurname }}</td>
+                                <td>{{ pay.uname }} {{ pay.usurname }}</td>
+                                <td>{{ pay.total }}</td>
+                                <td>{{ pay.status }}</td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                        <tfoot>
+                            <tr>
+                                <td colspan="7">จำนวนใบสั่งขายที่ยังไม่ชำระ:{{total_paid_orders}} </td>
+                            </tr>
+                        </tfoot>
+                    </thead>
+                </table>
+            </div>
+        </div>
+    </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const numberFormatter = new Intl.NumberFormat('th-TH');
+    
+            Highcharts.chart('container', {
+                chart: {
+                    type: 'column'
+                },
+                title: {
+                    text: 'สรุปรายรับรายจ่ายต่อเดือนเเละรายการขายสินค้าต่อเดือน',
+                    align: 'center'
+                },
+                xAxis: {
+                    type: 'category',
+                    title: {
+                        text: 'เดือน-ปี'
+                    }
+                },
+                yAxis: {
+                    min: 0,
+                    title: {
+                        text: 'รายได้ (บาท)'
+                    }
+                },
+                tooltip: {
+                    formatter: function () {
+                        return `<b>${this.series.name}</b>: ${numberFormatter.format(this.y)} บาท`;
+                    }
+                },
+                plotOptions: {
+                    column: {
+                        pointPadding: 0.2,
+                        borderWidth: 0,
+                        dataLabels: {
+                            enabled: true,
+                            formatter: function () {
+                                return numberFormatter.format(this.y);
+                            }
+                        }
+                    }
+                },
+                series: [
+                    {
+                        name: 'รายการที่ยังไม่ชำระ',
+                        data: {{ chart_data_unpaid|tojson }}
+                    },
+                    {
+                        name: 'รายรับ',
+                        data: {{ chart_data_paid|tojson }}
+                    },
+                    {
+                        name: 'รายจ่าย',
+                        data: {{ chart_data_paidpur|tojson }}
+                    }
+                ]
+            });
+        });
+        
+        
+
+        Highcharts.chart('container1', {
+            chart: {
+                type: 'pie'
+            },
+            title: {
+                text: 'ข้อมูลสรุปผลกำไรขาดทุน'
+            },
+            tooltip: {
+                valueSuffix: '%'
+            },
+            plotOptions: {
+                series: {
+                    allowPointSelect: true,
+                    cursor: 'pointer',
+                    dataLabels: [{
+                        enabled: true,
+                        distance: 20
+                    }, {
+                        enabled: true,
+                        distance: -40,
+                        format: '{point.percentage:.1f}%',
+                        style: {
+                            fontSize: '1.2em',
+                            textOutline: 'none',
+                            opacity: 0.7
+                        },
+                        filter: {
+                            operator: '>',
+                            property: 'percentage',
+                            value: 5
+                        }
+                    }]
+                }
+            },
+            series: [
+                {
+                    name: 'Percentage',
+                    colorByPoint: true,
+                    data: [
+                        {
+                            
+                        },
+                        {
+                            name: 'รายจ่าย',
+                            sliced: true,
+                            selected: true,
+                            y: {{purorder['totalunicost']}}
+                        },
+                        
+                        {
+                            name: 'รายรับ',
+                            y: {{revenue['total_revenue']}}
+                        },
+                    ]
+                }
+            ]
+        });
+        
+    </script>
+</body>
+
+</html>
+{% endblock %}

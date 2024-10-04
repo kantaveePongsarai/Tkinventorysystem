@@ -1,0 +1,106 @@
+{% extends "base.html" %}
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>อัปเดตข้อมูล</title>
+    <link rel="stylesheet" href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css">
+    <link rel="stylesheet" href="../static/css/insert.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        .container {
+          max-width: 800px;
+          margin: 0 auto;
+          padding: 50px;
+        }
+    
+        .row {
+          margin-bottom: 50px;
+        }
+    
+        .col-half {
+          width: 48%;
+          display: inline-block;
+          vertical-align: top;
+        }
+    
+        .col-third {
+          width: 30%;
+          display: inline-block;
+          margin-right: 5%;
+        }
+    
+        
+        .input-group {
+          position: relative;
+          margin-bottom: 10px;
+        }
+    
+        .input-group-icon {
+          display: flex;
+          align-items: center;
+        }
+    
+        .input-group-icon input {
+          padding-left: 30px;
+        }
+    
+        .input-icon {
+          position: absolute;
+          left: 10px;
+        }
+    
+        .input-icon i {
+          color: #999;
+        }
+      </style>
+</head>
+<body>
+    <div class="container">
+    <form method="POST" action="/updatepurdb">
+        <div class="row">
+            <h1><b>การเเก้ไขข้อมูลใบเสนอขาย</b></h1>
+            <h4>กรอกข้อมูล</h4><br>
+            <input type="hidden" name="id" value="{{ PD[0] }}">
+            
+            <input type="hidden" id="date" name="date" value="{{ PD[1] }}"><br>
+
+            <label for="docdate">วันที่สั่งขาย:</label>
+            <input type="date" id="docdate" name="docdate" value="{{ PD[2] }}" required><br>
+            
+            <label for="remark">หมายเหตุ:</label>
+            <input type="text" id="remark" name="remark" value="{{ PD[3] }}" required><br>
+
+            <label for="cusid">ชื่อลูกค้า:</label>
+            <div class="input-group input-group-icon">
+                <select id="cusid" class="form-control custom-select" name="cusid" required>
+                    <option selected disabled>เลือกรหัสพนักงาน</option>
+                    {% for customers in customer %}
+                        <option value="{{ customers[0] }}"{% if PD[4] == customers[0] %} selected {% endif %}>{{ customers[1] }} {{ customers[2] }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+
+            <label for="userid">ชื่อพนักงาน:</label>
+            <div class="input-group input-group-icon">
+                <select id="userid" class="form-control custom-select" name="userid" required>
+                    <option selected disabled>เลือกรหัสพนักงาน</option>
+                    {% for user in users %}
+                        <option value="{{ user[0] }}"{% if PD[5] == user[0] %} selected {% endif %}>{{ user[1] }} {{ user[2] }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+
+            <label for="persen">เปอร์เซ็นต์กำไร:</label>
+            <input type="text" id="persen" name="persen" value="{{ PD[7] }}" required><br>
+
+            <br><input type="submit" value="อัปเดตข้อมูล">
+        </div>
+    </form>
+    </div>
+</body>
+</html>
+{% endblock %}

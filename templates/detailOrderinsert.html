@@ -1,0 +1,114 @@
+{% extends "base.html" %}
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Form Example</title>
+  <link rel='stylesheet' href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css'>
+  <link rel="stylesheet" href="../static/css/insert.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <style>
+    .container {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+
+    .row {
+      margin-bottom: 20px;
+    }
+
+    .col-half {
+      width: 48%;
+      display: inline-block;
+      vertical-align: top;
+    }
+
+    .col-third {
+      width: 30%;
+      display: inline-block;
+      margin-right: 5%;
+    }
+
+    .input-group {
+      position: relative;
+      margin-bottom: 10px;
+    }
+
+    .input-group-icon {
+      display: flex;
+      align-items: center;
+    }
+
+    .input-group-icon input {
+      padding-left: 30px;
+    }
+
+    .input-icon {
+      position: absolute;
+      left: 10px;
+    }
+
+    .input-icon i {
+      color: #999;
+    }
+  </style>
+</head>
+
+<body>
+    <div class="container">
+    <form method="POST" action="/detailOrderinsertdb">
+        <label for="status" class="form-label" style="color: orange;">{{ status }}</label>
+        <input type="hidden" id="id" name="id" placeholder="รหัสรายละเอียดใบเสนอซื้อ" readonly>
+        <input type="hidden" id="purodid" name="purodid" value="{{ PurchaseOrder_ID }}">
+
+        <div class="row">
+          <h1><b>การเพิ่มข้อมูลรายละเอียดใบเสนอซื้อ</b></h1>
+          <h4>กรอกข้อมูล</h4><br>
+          
+          <label for="type">ชื่อสินค้า:</label>
+          <div class="input-group input-group-icon">
+            <input type="text" id="proname" name="proname" placeholder="ชื่อสินค้า" required>
+            <div class="input-icon"><i class="fa-solid fa-person-military-pointing"></i></div>
+          </div>
+          <label for="type">จำนวนสินค้า:</label>
+          <div class="input-group input-group-icon">
+            <input type="text" id="quantity" name="quantity" placeholder="จำนวนสินค้า" required>
+            <div class="input-icon"><i class="fa-solid fa-user"></i></div>
+          </div>
+          <label for="type">ราคาต้นทุนต่อชิ้น:</label>
+          <div class="input-group input-group-icon">
+            <input type="text" id="unicost" name="unicost" placeholder="ราคาต้นทุนต่อชิ้น" required>
+            <div class="input-icon"><i class="fa-solid fa-user"></i></div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-half">
+            <h4>วันที่บันทึกข้อมูล</h4>
+            <div class="input-group">
+              <input type="date" id="date" name="date" placeholder="วันที่บันทึกข้อมูล" required>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <h4>กดช่องสี่เหลี่ยมก่อนกดยืนยันการเพิ่มข้อมูล</h4>
+          <div class="input-group">
+            <input id="terms" type="checkbox" required>
+            <label for="terms">กรุณาตรวจสอบข้อมูลอีกครั้งก่อนกดยืนยัน ขอบคุณครับ.</label>
+          </div>
+        </div>
+        <div class="row">
+          <input type="submit" value="ยืนยันการเพิ่มข้อมูล">
+        </div>
+    </form> 
+    </div>
+</body>
+
+</html>
+{% endblock %}

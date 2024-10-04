@@ -1,0 +1,121 @@
+{% extends "base.html" %}
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>อัปเดตข้อมูล</title>
+    <link rel="stylesheet" href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css">
+    <link rel="stylesheet" href="../static/css/insert.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 50px;
+        }
+        .row {
+            margin-bottom: 50px;
+        }
+        .input-group {
+            position: relative;
+            margin-bottom: 10px;
+        }
+        .input-group-icon {
+            display: flex;
+            align-items: center;
+        }
+        .input-group-icon input {
+            padding-left: 30px;
+        }
+        .input-icon {
+            position: absolute;
+            left: 10px;
+        }
+        .input-icon i {
+            color: #999;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <form method="POST" action="/updatedetailrequisition">
+            <div class="row">
+                <h1><b>การเเก้ไขรายละเอียดใบเบิกวัสดุอุปกรณ์</b></h1>
+                <h4>กรอกข้อมูล</h4><br>
+                <input type="hidden" name="id" value="{{ PD[0] }}">
+                
+                <label for="date">วันที่บันทึกข้อมูล:</label>
+                <input type="date" id="date" name="date" value="{{ PD[1] }}" required><br>
+
+                <input type="hidden" id="Req_Materials_ID" name="Req_Materials_ID" value="{{ PD[3] }}" required><br>
+                
+                <label for="Materials_ID">เลือกวัสดุอุปกรณ์:</label>
+                <div class="input-group input-group-icon">
+                    <select id="Materials_ID" class="form-control custom-select" name="Materials_ID" required>
+                        <option selected disabled>เลือกวัสดุอุปกรณ์</option>
+                        {% for material in materials %}
+                            <option value="{{ material[0] }}" {% if PD[4] == material[0] %} selected {% endif %}>{{ material[1] }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <img src="{{ stock[1] }}" alt="Materials Image" width="150px" height="150px">
+                <p>ประเภทวัสดุ: {{ stock[2] }}</p>
+                <p>จำนวนสินค้าคงเหลือ: <span id="available-stock">{{ stock[0] }}</span></p>
+
+                <label for="quantity">จำนวน:</label>
+                <input type="text" id="quantity" name="quantity" value="{{ PD[2] }}" required><br>
+
+                <br><input type="submit" value="อัปเดตข้อมูล">
+            </div>
+        </form>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            function updateAvailableStock() {
+                var materialId = $('#Materials_ID').val();
+                if (materialId) {
+                    $.ajax({
+                        url: '/get_material_info/' + materialId,
+                        type: 'GET',
+                        success: function(data) {
+                            var availableStockMatch = data.match(/จำนวนสินค้าคงเหลือ: <span id="available-stock">(\d+)<\/span>/);
+                            if (availableStockMatch) {
+                                $('#available-stock').text(availableStockMatch[1]);
+                                // Also update the image src if necessary
+                                var imageMatch = data.match(/<img src="([^"]+)" alt="Materials Image"/);
+                                if (imageMatch) {
+                                    $('img[alt="Materials Image"]').attr('src', imageMatch[1]);
+                                }
+                            }
+                        }
+                        // Removed the error handler
+                    });
+                }
+            }
+
+            // Initial call to set available stock on page load
+            updateAvailableStock();
+
+            // Update stock information when the Materials_ID changes
+            $('#Materials_ID').change(function() {
+                updateAvailableStock();
+            });
+
+            // Validate the quantity before form submission
+            $('form').submit(function(event) {
+                var quantity = parseInt($('#quantity').val());
+                var availableStock = parseInt($('#available-stock').text().trim());
+                if (isNaN(quantity) || isNaN(availableStock) || quantity > availableStock) {
+                    alert('จำนวนสินค้ามากกว่าที่มีอยู่ในคลัง');
+                    event.preventDefault(); 
+                }
+            });
+        });
+    </script>
+</body>
+</html>
+{% endblock %}

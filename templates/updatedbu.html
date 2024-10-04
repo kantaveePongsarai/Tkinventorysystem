@@ -1,0 +1,127 @@
+{% extends "baseuser.html" %}
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>อัปเดตข้อมูล</title>
+    <link rel="stylesheet" href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css">
+    <link rel="stylesheet" href="../static/css/insert.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        .container {
+          max-width: 800px;
+          margin: 0 auto;
+          padding: 50px;
+        }
+    
+        .row {
+          margin-bottom: 20px;
+        }
+        
+        .row .img{
+          align-items: center;
+        }
+        .col-half {
+          width: 48%;
+          display: inline-block;
+          vertical-align: top;
+        }
+    
+        .col-third {
+          width: 30%;
+          display: inline-block;
+          margin-right: 5%;
+        }
+    
+        .input-group {
+          position: relative;
+          margin-bottom: 10px;
+        }
+    
+        .input-group-icon {
+          display: flex;
+          align-items: center;
+        }
+    
+        .input-group-icon input {
+          padding-left: 30px;
+        }
+    
+        .input-icon {
+          position: absolute;
+          left: 10px;
+        }
+    
+        .input-icon i {
+          color: #999;
+        }
+
+      </style>
+</head>
+<body>
+    <div class="container">
+    <form method="POST" action="/updatedbu" enctype="multipart/form-data">
+        <div class="row">
+            <h1><b>การเเก้ไขข้อมูลสินค้า</b></h1>
+            <h4>กรอกข้อมูล</h4>
+            <input type="hidden" name="id" value="{{ PD[0] }}">
+            
+            <label for="name">ชื่อสินค้า:</label>
+            <input type="text" id="name" name="name" value="{{ PD[1] }}" required><br>
+
+            <label for="quantity">จำนวน : (เส้น)</label>
+            <input type="text" id="quantity" name="quantity" value="{{ PD[2] }}" required><br>
+
+            <label for="amountvat">ราคาต้นทุนรวมภาษี : (บาท) </label>
+            <input type="text" id="amountvat" name="amountvat" value="{{ PD[3] }}" required><br>
+
+
+            <label for="wight">น้ำหนัก : (กิโลกรัม)</label>
+            <input type="text" id="wight" name="wight" value="{{ PD[5] }}" required><br>
+
+            <label for="type">ประเภทของเหล็กเส้น:</label><br>
+            <select id="type" name="type" required>
+                <option value="">โปรดเลือกประเภทเหล็ก</option>
+                <option value="เหล็กเส้นกลม" {% if PD[6] == 'เหล็กเส้นกลม' %}selected{% endif %}>เหล็กเส้นกลม</option>
+                <option value="เหล็กข้ออ้อย" {% if PD[6] == 'เหล็กข้ออ้อย' %}selected{% endif %}>เหล็กข้ออ้อย</option>
+                <option value="เหล็กเส้นเเบน" {% if PD[6] == 'เหล็กเส้นเเบน' %}selected{% endif %}>เหล็กเส้นเเบน</option>
+            </select><br>
+
+            <br><label for="Porimage">รูปสินค้า:</label>
+            <br><img src="{{PD[7]}}" alt="" style="width: 150px;" height="150px">
+            <div class="input-group input-group-icon">
+              <input type="file" id="Porimage" name="Porimage" value="{{ PD[7] }}" accept="image/*"><br>
+            </div>
+
+            <br><label for="date">วันที่:</label><br>
+            <input type="date" id="date" name="date" value="{{ PD[8] }}" required><br>
+
+            <label for="user">รหัสพนักงาน:</label>
+            <div class="input-group input-group-icon">
+                <select id="user" class="form-control custom-select" name="user" required>
+                    <option selected disabled>เลือกรหัสพนักงาน</option>
+                    {% for user in users %}
+                        <option value="{{ user[0] }}"{% if PD[9] == user[0] %} selected {% endif %}>{{ user[1] }} {{ user[2] }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <label for="vendor">รหัสผู้ขายผู้ผลิต:</label>
+            <div class="input-group input-group-icon">
+                <select id="vendor" class="form-control custom-select" name="vendor" required>
+                    <option selected disabled>เลือกรหัสพนักงาน</option>
+                    {% for vendor in vendors %}
+                        <option value="{{ vendor[0] }}"{% if PD[10] == vendor[0] %} selected {% endif %}>{{ vendor[1] }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+
+            <br><input type="submit" value="อัปเดตข้อมูล">
+        </div>
+    </form>
+    </div>
+</body>
+</html>
+{% endblock %}

@@ -1,0 +1,144 @@
+{% extends "baseuser.html" %}
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel='stylesheet' href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css'><link rel="stylesheet" href="../static/css/user.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div class="main--content">
+    <div class="header--wrapper">
+        <div class="header--title">
+            <img src="./static/image/TKB1.png" alt="">
+            <span>TK Management co.ltd</span>
+            <h2>inventory System Online</h2>
+        </div>
+        <div class="user--info">
+            <img src="{{ user_info['userimage']}}" alt=""><p><h5>({{user_info['role']}})</h5>{{user_info['Name']}}   {{user_info['Surname']}}</p>
+        </div>
+    </div>
+</div>
+<div class="wrapper1">
+    <div class="container">
+
+        <!-- ===== ===== Header/Navbar ===== ===== -->
+        <header>
+            <div class="brandLogo">
+                <figure><img src="./static/image/TKB1.png" alt="logo" width="40px" height="40px"></figure>
+                <span>Profile employee</span>
+            </div>
+        </header>
+
+
+        <!-- ===== ===== User Main-Profile ===== ===== -->
+        <section class="userProfile card">
+            <div class="profile">
+                <figure><img src="{{ user_info['userimage']}}" alt="profile" width="250px" height="250px"></figure>
+            </div>
+        </section>
+
+
+        <!-- ===== ===== Work & Skills Section ===== ===== -->
+        <section class="work_skills card">
+
+            <!-- ===== ===== Work Contaienr ===== ===== -->
+            <div class="work">
+                <h3 class="heading">Remark</h3>
+                <div class="primary">
+                    <h1>{{ user_info['Remark']}}</h1>
+                </div>
+
+                <div class="secondary">
+                    <h1>พนักงาน <br> บริษัท ทีเคเมนเนจเม้นท์ จำกัด</h1>
+                    <span>Tk Management co.,ltd</span>
+                    <p>สถานที่ทำงาน <br> สำนักงานใหญ่ : เลขที่ 159/25 หมู่ที่ 6 ตำบลลำโพ
+                        อำเภอบางบัวทอง จังหวัดนนทบุรี 11110</p>
+                </div>
+            </div>
+
+        </section>
+
+
+        <!-- ===== ===== User Details Sections ===== ===== -->
+        <section class="userDetails card">
+            <div class="userName">
+                <h1 class="name">{{user_info['Name']}} {{user_info['Surname']}}</h1>
+                <div class="map">
+                    <i class="ri-map-pin-fill ri"></i>
+                    <span>นนทบุรี, บางบัวทอง</span>
+                </div>
+                <p>หน้าที่เเละตำเเหน่ง : {{user_info['Position']}}</p>
+            </div>
+
+            <div class="rank">
+                <h1 class="heading">รหัสพนักงาน</h1>
+                <span>{{user_info['User_ID']}}</span>
+                <div class="rating">
+                    <i class="ri-star-fill rate"></i>
+                    <i class="ri-star-fill rate"></i>
+                    <i class="ri-star-fill rate"></i>
+                    <i class="ri-star-fill rate"></i>
+                    <i class="ri-star-fill rate underrate"></i>
+                </div>
+            </div>
+
+           
+        </section>
+
+
+        <!-- ===== ===== Timeline & About Sections ===== ===== -->
+        <section class="timeline_about card">
+            <div class="tabs">
+                <ul>
+
+                    <li class="about active">
+                        <i class="ri-user-3-fill ri"></i>
+                        <span>ข้อมูลพนักงาน</span>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="contact_Info">
+                <h1 class="heading">ที่อยู่สำหรับการติดต่อ</h1>
+                <ul>
+                    <li class="phone">
+                        <h1 class="label">เบอร์โทรศัพท์:</h1>
+                        <span class="info">{{user_info['Telenumber']}}</span>
+                    </li>
+
+                    <li class="address">
+                        <h1 class="label">ที่อยู่:</h1>
+                        <span class="info">{{user_info['address']}} <br></span>
+                    </li>
+
+                    <li class="email">
+                        <h1 class="label">E-mail:</h1>
+                        <span class="info">{{user_info['Email']}}</span>
+                    </li>
+
+                </ul>
+            </div>
+
+            <div class="basic_info">
+                <ul>
+                    <li class="birthday">
+                        <h1 class="label">วันเดือนปีเกิด:</h1>
+                        <span class="info">{{user_info['Birthday']}}</span>
+                    </li>
+
+                    <li class="sex">
+                        <h1 class="label">Gender:</h1>
+                        <span class="info">{{user_info['Gender']}}</span>
+                    </li>
+                </ul>
+            </div>
+        </section>
+    </div>
+</div>
+</body>
+</html>
+{% endblock %}

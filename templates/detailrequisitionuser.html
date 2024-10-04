@@ -1,0 +1,132 @@
+{% extends "baseuser.html" %}
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shopping Cart</title>
+
+    <link rel="stylesheet" href="../static/css/purorder.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link href="https://fonts.googleapis.com/css?family=Source+Sans+3:200,300,regular,500,600,700,800,900,200italic,300italic,500italic,600italic,700italic,800italic,900italic" rel="stylesheet"> 
+</head>
+
+<body>
+
+    <main class="container">
+
+        <h1 class="heading">
+            <ion-icon name="cart-outline"></ion-icon> จัดการรายละเอียดใบเบิกวัสดุอุปกรณ์
+            
+        </h1>
+
+        <div class="item-flex">
+
+            <section class="checkout">
+                <div class="heading--section">
+                    <h2 class="section-heading">Requisition Materials</h2>
+                    <h4 class="section-heading">ใบเบิก</h4>
+                </div>
+                <div class="payment-form">
+
+                    <div class="payment-method">
+
+                        <button class="method selected">
+                            <ion-icon name="cart-outline"></ion-icon>
+
+                            <span>{{ data[0][0] }}</span>
+
+                            <ion-icon class="checkmark fill" name="checkmark-circle"></ion-icon>
+                        </button>
+                        <div class="wrapper-flex">
+                            <a href="/detailrequisitionform/{{ data[0][0] }}" target="_blank" class="btn btn-outline">เเบบฟอร์ม</a>
+                            <a href="/detailrequisitioninsertuser/{{ data[0][0] }}" class="btn btn-outline">เพิ่มข้อมูล</a>
+                        </div>
+
+                    </div>
+
+                    <!-- Display data passed from Flask here -->
+                    <form action="#">
+                        <label for="cardholder-name" class="label-default">ชื่อผู้เบิก</label>
+                        <div class="cardholder-name">
+                            <span>{% print data[0][7] %}  {% print data[0][8] %}</span>
+                        </div>
+                        <label for="cardholder-name" class="label-default">หมายเหตุ</label>
+                        <div class="cardholder-name">
+                            <span>{% print data[0][9] %}</span>
+                        </div>
+
+                        <div class="input-flex">
+                            <div class="expire-date">
+                                <label for="expire-date" class="label-default">วันที่ออกใบเสนอ</label>
+
+                                <div class="input-flex">
+                                    <input type="date" value="{% print data[0][2] %}">
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+
+                </div>
+            </section>
+
+            <section class="cart">
+
+                <div class="cart-item-box"><br>
+
+                    <h2 class="section-heading">detail Requisition Materials</h2>
+                    <h4 class="section-heading">รายละเอียดวัสดุอุปกรณ์</h4>
+
+                    <div class="product-card">
+                    {% for row in data %}
+                        <div class="card"><br>
+                                <div class="img-box">
+                                    <div class="discount-token">
+                                        <div class="wrapper-flex">
+                                            <a href="/editdetailrequisitionuser/{{ row[1] }}" class="edit" title="edit" data-toggle="tooltip"><i class="material-icons">&#xE8B8;</i></a>
+                                            <a href="/deletedetailrequisitionuser/{{ row[1] }}" class="delete" title="Delete" data-toggle="tooltip"><i class="material-icons">&#xE5C9;</i></a>
+                                        </div>
+                                    </div>
+
+                                    <img src="{{row[10]}}" alt="Green tomatoes" width="80px" class="product-img">
+                                </div>
+                            <div class="discount-token">    
+                                <div class="detail">
+                                    <td style="padding-top:60px">
+                                        <h4>ชื่อสินค้า:{{row[5]}}</h4>
+                                    </td>
+                                        <div class="wrapper">
+                                            <div class="product-qty">
+                                                <strong id="quantity" name="quantity">จำนวน : {{row[3]}} ตัว</strong>
+                                            </div>
+                                        </div>
+                                        <div class="wrapper">
+                                            <div class="product-qty">
+                                                <strong id="type" name="type">จำนวน : {{row[6]}}</strong>
+                                            </div>
+                                        </div>
+                                </div>
+                            </div>
+                        </div><br>
+                    {% endfor %}
+                    </div>
+
+                    <!-- Additional product cards as needed -->
+                </div>
+                
+            </section>
+
+        </div>
+
+    </main>
+
+    <script src="{{ url_for('static', filename='js/pur.js') }}"></script>
+    <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+
+</body>
+
+</html>
+{% endblock %}

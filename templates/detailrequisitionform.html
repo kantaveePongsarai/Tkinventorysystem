@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ใบเสนอขายสินค้า</title>
+    <link rel="stylesheet" href="../static/css/detailsellerform.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+        th, td {
+            border: 1px solid #000;
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+        .document {
+            width: 100%;
+            margin: 0 auto;
+        }
+        .amount {
+            text-align: right;
+        }
+        .docEdit {
+            text-align: center;
+            cursor: pointer;
+        }
+        .docEdit.trAdd {
+            color: green;
+        }
+        .docEdit.tdDelete {
+            color: red;
+        }
+    </style>
+</head>
+<body>
+    <div class="document active">
+        <div class="spreadSheetGroup">
+            <td style="width:50%; vertical-align:top">
+                <table style="width:100%">
+                    <tbody>
+                        <tr>
+                            <td>
+                                <h2>ใบเบิกวัสดุอุปกรณ์ Tk Management co.,ltd : {% print data[0][0] %}</h2>
+                                <img src="../static/image/TKB1.png" alt="" style="width: 50px;" height="50px">
+                                <h4>วันที่ออกใบเบิกวัสดุอุปกรณ์ : {% print data[0][2] %}</h4>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <h4>ข้อมูลพนักงาน</h4>
+                                <p>ชื่อ-นามสกุล : {% print data[0][7] %}   {% print data[0][8] %}</p>
+                                <p style="padding-left:20px">
+                                    ที่อยู่พนักงาน : {% print data[0][14] %}
+                                </p>
+                                <p>เบอร์ : {% print data[0][12] %}</p>
+                                <p>ตำเเหน่ง : {% print data[0][13] %}</p>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </td>
+
+            <table class="proposedWork">
+                <thead>
+                    <tr>
+                        <th>รหัสวัสดุอุปกรณ์</th>
+                        <th>รูปวัสดุอุปกรณ์</th>
+                        <th>ชื่อวัสดุอุปกรณ์</th>
+                        <th>จำนวน</th>
+                        <th>ประเภท</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for row in data %}
+                    <tr>
+                        <td>{{row[1]}}</td>
+                        <td><img src="{{row[10]}}" alt="" style="width: 50px;" height="50px"></td>
+                        <td contenteditable="true" class="description">{{row[5]}}</td>
+                        <td>{{row[3]}}</td>
+                        <td>{{row[6]}}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+                
+                
+            </table>
+
+            <table>
+                <tbody>
+                    <tr>
+                        <td style="width:50%; vertical-align:top">
+                            <table style="width:100%">
+                                <tbody>
+                                    <tr>
+                                        <td>
+                                            <h4>บริษัททีเคเเมนเนจเมนท์จำกัด</h4>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <h4>ใบเบิกวัสดุอุปกรณ์ของบริษัททีเคเเมนเนจเมนท์จำกัด</h4>
+                                            <h4>TK Management co.,ltd.</h4>
+                                            <h4>กรุณาพิมพ์เอกสารใบเสนอขายนี้ขั้นต่ำ 2 ชุด เพื่อสำรองไว้ใช้กรณีทำหายหรือชำรุจ:</h4>
+                                            <h4 style="padding-left:20px">
+                                                42/4 ตำบลบางเดื่อ<br>
+                                                อำเภอเมืองปทุมธานี จังหวัดปทุมธานี.<br>
+                                                รหัสไปรษณีย์ 12000<br>
+                                                เบอร์ 082 451 4442
+                                            </h4>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </td>
+                        <td style="padding-left:40px; width:50%; vertical-align:top">
+                            <table style="width:100%">
+                                <tbody>
+                                   
+                                    <tr>
+                                        <td contenteditable="true" style="text-align:left;border: 1px solid #000">
+                                            <strong>หมายเหตุ : {% print data[0][9] %}</strong>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="padding-top:30px">
+                                            <h4>ออกใบเบิกวัสดุอุปกรณ์โดย : {% print data[0][7] %}  {% print data[0][8] %}</h4>  <h4>วันที่บันทึกข้อมูลรายละเอียดใบเสนอขาย:{% print data[0][2] %}</h4>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="padding-top:30px">
+                                            <h4>........................................................</h4>  <h4>(.........................................................................)</h4>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    
+    <script  src="../static/js/detailform.js"></script>
+</body>
+</html>

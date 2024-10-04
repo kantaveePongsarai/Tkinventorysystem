@@ -1,0 +1,175 @@
+{% extends "base.html" %}
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Form Example</title>
+  <link rel='stylesheet' href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css'>
+  <link rel="stylesheet" href="../static/css/insertuser.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <style>
+    .container {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+
+    .row {
+      margin-bottom: 20px;
+    }
+
+    .col-half {
+      width: 48%;
+      display: inline-block;
+      vertical-align: top;
+    }
+
+    .col-third {
+      width: 30%;
+      display: inline-block;
+      margin-right: 5%;
+    }
+
+    .input-group {
+      position: relative;
+      margin-bottom: 10px;
+    }
+
+    .input-group-icon {
+      display: flex;
+      align-items: center;
+    }
+
+    .input-group-icon input {
+      padding-left: 30px;
+    }
+
+    .input-icon {
+      position: absolute;
+      left: 10px;
+    }
+
+    .input-icon i {
+      color: #999;
+    }
+  </style>
+</head>
+
+<body>
+    <div class="container">
+    <form method="POST" action="/empinsertdb" enctype="multipart/form-data">
+        <label for="status" class="form-label" style="color: orange;">{{ status }}</label>
+
+        <div class="row">
+          <h1><b>การเพิ่มข้อมูลพนักงาน</b></h1>
+          <h4>กรอกข้อมูล</h4>
+          <div class="input-group input-group-icon">
+            <input type="hidden" id="id" name="id" placeholder="รหัสพนักงาน" readonly>
+          </div>
+          <label for="type">ชื่อ:</label>
+          <div class="input-group input-group-icon">
+            <input type="text" id="name" name="name" placeholder="ชื่อพนักงาน" required>
+            <div class="input-icon"><i class="fa-solid fa-file-signature"></i></div>
+          </div>
+          <label for="type">นามสกุล:</label>
+          <div class="input-group input-group-icon">
+            <input type="text" id="surname" name="surname" placeholder="นามสกุล" required>
+            <div class="input-icon"><i class="fa-solid fa-user"></i></div>
+          </div>  
+          <label for="gender">เพศ:</label><br>
+            <select id="gender" name="gender" required>
+                <option value="">โปรดเลือกเพศ</option>
+                <option value="ชาย">ชาย</option>
+                <option value="หญิง">หญิง</option>
+                <option value="เพศทางเลือก">เพศทางเลือก</option>
+            </select><br>
+        </div>
+        <label for="type">เบอร์โทรศัพ:</label>
+        <div class="row">
+          <div class="input-group input-group-icon">
+            <input type="text" id="telenumber" name="telenumber" placeholder="เบอร์โทรศัพท์" required>
+            <div class="input-icon"><i class="fa-solid fa-person-military-pointing"></i></div>
+          </div>
+          <label for="type">อีเมล์:</label>
+          <div class="input-group input-group-icon">
+            <input type="email" id="email" name="email" placeholder="อีเมล์" required>
+            <div class="input-icon"><i class="fa-solid fa-person-military-pointing"></i></div>
+          </div>
+          <label for="type">ตำเเหน่ง:</label>
+          <div class="input-group input-group-icon">
+            <input type="text" id="position" name="position" placeholder="ตำเเหน่ง" required>
+            <div class="input-icon"><i class="fa-solid fa-person-military-pointing"></i></div>
+          </div>
+          <label for="type">ไอดีสำหรับล็อคอิน:</label>
+          <div class="input-group input-group-icon">
+            <input type="text" id="username" name="username" placeholder="ไอดีสำหรับล็อคอิน" required>
+            <div class="input-icon"><i class="fa-solid fa-person-military-pointing"></i></div>
+          </div>
+          <label for="type">รหัสผ่าน:</label>
+          <div class="input-group input-group-icon">
+            <input type="text" id="password" name="password" placeholder="รหัสผ่าน" required>
+            <div class="input-icon"><i class="fa-solid fa-person-military-pointing"></i></div>
+          </div>
+          <div class="row">
+            <label for="status">สถานะการทำงาน:</label><br>
+              <select id="status" name="status" required>
+                  <option value="">โปรดเลือกสถานะการทำงาน</option>
+                  <option value="ยังทำงานอยู่">ยังทำงานอยู่</option>
+                  <option value="ไม่ได้ทำงานเเล้ว">ไม่ได้ทำงานเเล้ว</option>
+              </select><br>
+          </div>
+          <label for="type">หมายเหตุ:</label>
+          <div class="input-group input-group-icon">
+            <input type="text" id="remark" name="remark" placeholder="หมายเหตุ" required>
+            <div class="input-icon"><i class="fa-solid fa-person-military-pointing"></i></div>
+          </div>
+          <div class="row">
+            <label for="role">หน้าที่:</label><br>
+              <select id="role" name="role" required>
+                  <option value="">โปรดเลือกหน้าที่</option>
+                  <option value="admin">admin</option>
+                  <option value="user">user</option>
+              </select><br>
+          </div>
+          <div class="col-half">
+            <h4>รูปพนักงาน</h4>
+            <div class="input-group">
+              <input type="file" name="userimage" accept="image/*" required>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-half">
+          <h4>วันเดือนปีเกิด</h4>
+          <div class="input-group">
+            <input type="date" id="birthday" name="birthday" placeholder="วันเดือนปีเกิด" required>
+          </div>
+        </div>
+        <div class="col-half">
+          <h4>ที่อยู่</h4>
+          <div class="input-group">
+            <input type="text" id="address" name="address" placeholder="ที่อยู่" required>
+          </div>
+        </div>
+
+        <div class="row">
+          <h4>Terms and Conditions</h4>
+          <div class="input-group">
+            <input id="terms" type="checkbox" required>
+            <label for="terms">I accept the terms and conditions for signing up to this service, and hereby confirm I have
+              read the privacy policy.</label>
+          </div>
+        </div>
+        <div class="row">
+          <input type="submit" value="ยืนยันการเพิ่มข้อมูล">
+        </div>
+    </form> 
+    </div>
+</body>
+
+</html>
+{% endblock %}
